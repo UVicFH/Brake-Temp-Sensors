@@ -1,0 +1,13 @@
+Added Component: Designator=U??(H_08_1)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Built_By"; Value = "EMA_UL_Team"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "OP77FJZ"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "RefDes"; Value = "RefDes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Type"; Value = "DEV"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "Value"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Vendor"; Value = "Analog Devices Inc"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=SCL/ADC5 Pin=U??-1
+Added Pin To Net: NetName=SDA/ADC4 Pin=U??-2
+Added Pin To Net: NetName=+5V Pin=U??-3
+Added Pin To Net: NetName=GND Pin=U??-4
+Added Member To Class: ClassName=BrakeTemp Member=Component U?? MLX90614
