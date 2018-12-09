@@ -1,0 +1,5 @@
+DRC Rules Export File for PCB: C:\Users\akshd\Desktop\UVIC Hybrid team\GitHub\Brake-Temp-Sensors\Candunio.PcbDoc
+RuleKind=ShortCircuit|RuleName=ShortCircuit|Scope=Board|Allowed=0
+RuleKind=Clearance|RuleName=Clearance|Scope=Board|Minimum=7.87
+RuleKind=Width|RuleName=Width|Scope=Board|Minimum=13.78
+RuleKind=SolderMaskExpansion|RuleName=SolderMaskExpansion|Scope=Board|Minimum=0.00

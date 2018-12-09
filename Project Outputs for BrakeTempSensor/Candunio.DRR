@@ -1,0 +1,19 @@
+----------------------------------------------------------------------------------------------------------------------------------
+NCDrill File Report For: Candunio.PcbDoc   2018-12-09  12:59:32 AM
+----------------------------------------------------------------------------------------------------------------------------------
+
+Layer Pair : Top Layer to Bottom Layer
+ASCII RoundHoles File : Candunio.TXT
+
+Tool       Hole Size               Hole Tolerance               Hole Type       Hole Count   Plated         Tool Travel
+----------------------------------------------------------------------------------------------------------------------------------
+T1      12mil (0.3mm)                                             Round             106       PTH        0.00inch (0.00mm)
+T2      31mil (0.787mm)                                           Round             4         PTH        0.00inch (0.00mm)
+T3      33mil (0.85mm)                                            Round             2         PTH        0.00inch (0.00mm)
+T4      39mil (1mm)                                               Round             12        PTH        0.00inch (0.00mm)
+T5      55mil (1.4mm)                                             Round             2         PTH        0.00inch (0.00mm)
+T6      157mil (4mm)                                              Round             2         PTH        0.00inch (0.00mm)
+----------------------------------------------------------------------------------------------------------------------------------
+Totals                                                                              128
+
+Total Processing Time (hh:mm:ss) : 00:00:00

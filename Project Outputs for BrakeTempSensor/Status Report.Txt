@@ -1,0 +1,12 @@
+Output: NC Drill Files
+Type  : NC Drill
+From  : Project [BrakeTempSensor.PrjPcb]
+   Generated File[Candunio.TXT]
+   Generated File[Candunio.LDP]
+   Generated File[Candunio.DRR]
+
+
+Files Generated   : 3
+Documents Printed : 0
+
+Finished Output Generation At 12:59:32 AM On 2018-12-09
