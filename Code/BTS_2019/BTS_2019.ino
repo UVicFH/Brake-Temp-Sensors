@@ -21,23 +21,24 @@ int curr_arr[10];
 int curr_avg = 0;
 int amb_avg = 0;
 
+int count = 0;
+
 //funtion for setting a whole array to single value
-int[10] reset_arr(int temp)
+void reset_arr(int (&arr)[10],int temp)
 {
-  int[10] arr;
-  for(i = 0; i < 10; i++)
+  for(int i = 0; i < 10; i++)
   {
     arr[i] = temp;
   }
-  return arr;
+ 
 }
 
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
   mlx.begin();  
-  
-START_INIT:
+  Serial.print("check");
+  START_INIT:
 
   if(CAN_OK == CAN.begin(CAN_500KBPS))                   // init can bus : baudrate = 500k
   {
@@ -54,8 +55,8 @@ START_INIT:
   
   curr_temp = mlx.readObjectTempC();
   amb_temp = mlx.readAmbientTempC();
-  curr_arr = reset_arr(curr_temp);
-  amb_arr = reset_arr(amb_temp);
+  reset_arr(curr_arr,curr_temp);
+  reset_arr(amb_arr,amb_temp);
   
 }
 
@@ -64,9 +65,11 @@ void loop() {
   amb_temp = mlx.readAmbientTempC();
 
   //make maximum temp array for curr to account for gaps in rotor
-  for(i = 0; i < 10; i++)
+  for(int i = 0; i < 10; i++)
     {
-      if(curr_temp > curr_arr[i]) cur_arr[i] = curr_temp;
+      if(curr_temp > curr_arr[i]) curr_arr[i] = curr_temp;
+      count++;
+      break;
     }
   
   
@@ -76,10 +79,10 @@ void loop() {
       curr_avg = 0;
    
    // get average of temperture arrays
-   for(i = 0; i < 10; i++)
+   for(int i = 0; i < 10; i++)
      {
-      amb_avg = amb_avg + amb_avg[i]/10;
-      curr_avg = curr_avg + curr_avg[i]/10;
+      amb_avg = amb_avg + amb_arr[i]/10;
+      curr_avg = curr_avg + curr_arr[i]/10;
      }
   
     //set message
@@ -90,11 +93,12 @@ void loop() {
     canMessage[3] = amb_avg >> 8;
     
     //send out AMS/IMD status as 8 bit CANOut char array
-    CAN.sendMsgBuf((canOutputId, 0, 8, canMessage));
+    CAN.sendMsgBuf(canOutputId, 0, 8, canMessage);
     canLastSent = millis();
 
     // clear curr array to allow for temperture drops
-    curr_arr = reset_arr(curr_temp);
-
+    reset_arr(curr_arr,0);
+    Serial.print(count);
+    count = 0;
   }
 }
