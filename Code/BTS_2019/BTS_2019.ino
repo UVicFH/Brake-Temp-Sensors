@@ -23,14 +23,13 @@ int amb_avg = 0;
 
 int count = 0;
 
-//funtion for setting a whole array to single value
+//funtion for setting a whole array to a single value
 void reset_arr(int (&arr)[10],int temp)
 {
   for(int i = 0; i < 10; i++)
   {
     arr[i] = temp;
   }
- 
 }
 
 void setup() {
@@ -51,8 +50,8 @@ void setup() {
       delay(100);
       goto START_INIT;
   }
-  // fill both arrays with the current ambient and rotor temperture
   
+  // fill both arrays with the current ambient and rotor temperture
   curr_temp = mlx.readObjectTempC();
   amb_temp = mlx.readAmbientTempC();
   reset_arr(curr_arr,curr_temp);
@@ -61,15 +60,14 @@ void setup() {
 }
 
 void loop() {
-  curr_temp = mlx.readObjectTempC();
-  amb_temp = mlx.readAmbientTempC();
-
   //make maximum temp array for curr to account for gaps in rotor
   for(int i = 0; i < 10; i++)
     {
+      curr_temp = mlx.readObjectTempC();
+      amb_temp = mlx.readAmbientTempC();
+      amb_arr[i] = amb_temp;
       if(curr_temp > curr_arr[i]) curr_arr[i] = curr_temp;
-      count++;
-      break;
+      // count = count + 1;
     }
   
   
@@ -93,12 +91,14 @@ void loop() {
     canMessage[3] = amb_avg >> 8;
     
     //send out AMS/IMD status as 8 bit CANOut char array
-    CAN.sendMsgBuf(canOutputId, 0, 8, canMessage);
+//    CAN.sendMsgBuf(canOutputId, 0, 8, canMessage);
     canLastSent = millis();
 
     // clear curr array to allow for temperture drops
     reset_arr(curr_arr,0);
-    Serial.print(count);
-    count = 0;
+    
+    // For debugging
+    // Serial.println(count);
+    // count = 0;
   }
 }
