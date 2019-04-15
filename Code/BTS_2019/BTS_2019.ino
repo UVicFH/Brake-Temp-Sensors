@@ -3,9 +3,8 @@
 #include <Wire.h>
 #include <Adafruit_MLX90614.h>
 
-#define CAN_BTS_OUT_ID 0x51   // CAN ID Out
 #define canDelay 50
-#define canOutputId 51
+#define canOutputId 61
 #define spiCsPin 9
 
 MCP_CAN CAN(spiCsPin);
@@ -14,8 +13,8 @@ Adafruit_MLX90614 mlx = Adafruit_MLX90614();
 const int SPI_CS_PIN = 9;
 unsigned long canLastSent = 0;
 //Unsigned char acts as byte for message sending
-int curr_temp = 0;
-int amb_temp= 0;
+float curr_temp = 0;
+float amb_temp= 0;
 int amb_arr[10];
 int curr_arr[10];
 int curr_avg = 0;
@@ -36,7 +35,6 @@ void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
   mlx.begin();  
-  Serial.print("check");
   START_INIT:
 
   if(CAN_OK == CAN.begin(CAN_500KBPS))                   // init can bus : baudrate = 500k
@@ -65,6 +63,8 @@ void loop() {
     {
       curr_temp = mlx.readObjectTempC();
       amb_temp = mlx.readAmbientTempC();
+      curr_temp = curr_temp*100;
+      amb_temp = amb_temp*100;
       amb_arr[i] = amb_temp;
       if(curr_temp > curr_arr[i]) curr_arr[i] = curr_temp;
       // count = count + 1;
@@ -84,14 +84,18 @@ void loop() {
      }
   
     //set message
-    unsigned char canMessage[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+    unsigned char canMessage[8] = {0, 0, 0, 0};
     canMessage[0] = curr_avg;
     canMessage[1] = curr_avg >> 8;
     canMessage[2] = amb_avg;
     canMessage[3] = amb_avg >> 8;
+
+//    Serial.println(amb_avg);
+//    Serial.println(canMessage[0]);
+//    Serial.println(canMessage[1]);
+ 
     
-    //send out AMS/IMD status as 8 bit CANOut char array
-//    CAN.sendMsgBuf(canOutputId, 0, 8, canMessage);
+    CAN.sendMsgBuf(canOutputId, 0, 8, canMessage);
     canLastSent = millis();
 
     // clear curr array to allow for temperture drops
